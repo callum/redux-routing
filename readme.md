@@ -31,7 +31,7 @@ store.dispatch(navigate('/foo'))
 // logs 'bar'
 store.dispatch(navigate('/foo/123'))
 // logs 'baz'
-store.dispatch(navigate('/foo/123?name=callum'))
+store.dispatch(navigate('/foo/123', '?name=callum'))
 // logs 'baz'
 
 console.log(store.getState())
