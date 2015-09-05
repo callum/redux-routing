@@ -1,0 +1,30 @@
+{
+  "name": "example",
+  "scripts": {
+    "build": "browserify main.js | uglifyjs -cm > public/bundle.js",
+    "start": "npm run www & npm run watch",
+    "watch": "watchify main.js -o public/bundle.js -dv",
+    "www": "ecstatic -p 8000 public"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "stage": 0
+        }
+      ]
+    ]
+  },
+  "devDependencies": {
+    "babelify": "^6.3.0",
+    "browserify": "^11.0.1",
+    "ecstatic": "^0.8.0",
+    "react": "^0.13.3",
+    "react-redux": "^2.0.0",
+    "redux": "^2.0.0",
+    "uglifyjs": "^2.4.10",
+    "watchify": "^3.4.0"
+  },
+  "license": "public domain"
+}

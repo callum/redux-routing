@@ -1,0 +1,40 @@
+{
+  "name": "redux-router",
+  "description": "Routing with redux",
+  "main": "index.js",
+  "dependencies": {
+    "path-parser": "^0.3.2",
+    "qs": "^5.0.0"
+  },
+  "devDependencies": {
+    "babelify": "^6.3.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "stage": 0
+        }
+      ]
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/callum/redux-router"
+  },
+  "keywords": [
+    "router",
+    "redux",
+    "react"
+  ],
+  "author": "Callum Jefferies <callum@callumj.uk> (http://callumj.uk/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/callum/redux-router/issues"
+  },
+  "homepage": "https://github.com/callum/redux-router"
+}
