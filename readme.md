@@ -1,8 +1,18 @@
 # redux-router
 
+Agnostic routing built on top of [redux](github.com/rackt/redux). Keep your router state with the rest of your application state, dispatching actions to update the current route.
+
+redux-router can persist state using a hash or the HTML5 History API.
+
+For usage with React see [example/main.js](example/main.js)
+
 [![Build Status](https://travis-ci.org/callum/redux-router.svg)](https://travis-ci.org/callum/redux-router)
 
-Routing with redux
+## install
+
+```
+npm install redux-router --save
+```
 
 ## example
 
@@ -49,5 +59,3 @@ console.log(store.getState())
 //   search: '?name=callum'
 // }
 ```
-
-For usage with React see `example/main.js`
