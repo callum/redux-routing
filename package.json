@@ -1,37 +1,35 @@
 {
   "name": "redux-router",
-  "description": "Routing with redux",
-  "main": "index.js",
+  "description": "Agnostic routing built on top of redux",
+  "main": "build-index.js",
+  "jsnext:main": "index.js",
   "dependencies": {
     "path-parser": "^0.3.2"
   },
   "devDependencies": {
+    "babel": "^5.8.23",
     "babelify": "^6.3.0",
     "browserify": "^11.0.1",
+    "rimraf": "^2.4.3",
     "tape": "^4.2.0",
     "tape-run": "^1.1.0"
   },
   "scripts": {
+    "build": "babel -e 0 index.js -o build-index.js && babel -e 0 lib --out-dir build",
+    "clean": "rimraf build-index.js build",
+    "postpublush": "npm run clean && git push && git push --tags",
+    "prepublish": "npm run clean && npm run build",
     "test": "browserify test/*.js | tape-run"
-  },
-  "browserify": {
-    "transform": [
-      [
-        "babelify",
-        {
-          "stage": 0
-        }
-      ]
-    ]
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/callum/redux-router"
   },
   "keywords": [
-    "router",
+    "history",
+    "react",
     "redux",
-    "react"
+    "router"
   ],
   "author": "Callum Jefferies <callum@callumj.uk> (http://callumj.uk/)",
   "license": "ISC",
