@@ -1,6 +1,6 @@
 # redux-routing
 
-Agnostic routing built on top of [redux](github.com/rackt/redux). Keep your router state with the rest of your application state, dispatching actions to update the current route.
+Agnostic routing built on top of [redux](https://github.com/rackt/redux). Keep your router state with the rest of your application state, dispatching actions to update the current route.
 
 redux-routing can persist state using a hash or the HTML5 History API.
 
