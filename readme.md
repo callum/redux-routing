@@ -1,5 +1,7 @@
 # redux-router
 
+[![Build Status](https://travis-ci.org/callum/redux-router.svg)](https://travis-ci.org/callum/redux-router)
+
 Routing with redux
 
 ## example
