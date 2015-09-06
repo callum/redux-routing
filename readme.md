@@ -27,13 +27,13 @@ const createStoreWithMiddleware = applyMiddleware(middleware)(createStore)
 const store = createStoreWithMiddleware(reducer)
 
 // start routing
-store.dispatch(replace('/'))
+store.dispatch(replace({ pathname: '/' }))
 // logs 'foo'
-store.dispatch(navigate('/foo'))
+store.dispatch(navigate({ pathname: '/foo' }))
 // logs 'bar'
-store.dispatch(navigate('/foo/123'))
+store.dispatch(navigate({ pathname: '/foo/123' }))
 // logs 'baz'
-store.dispatch(navigate('/foo/123', '?name=callum'))
+store.dispatch(navigate({ pathname: '/foo/123', search: '?name=callum' }))
 // logs 'baz'
 
 console.log(store.getState())

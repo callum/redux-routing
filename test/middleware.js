@@ -33,7 +33,7 @@ test('throws on invalid route', t => {
 })
 
 test('calling next and returning a value', t => {
-  t.plan(5)
+  t.plan(6)
 
   function handler () {
   }
@@ -48,12 +48,14 @@ test('calling next and returning a value', t => {
   const middleware = createMiddleware(router)
 
   const result = middleware()(next)({
+    hash: '#quux',
     pathname: '/foo',
     search: '?bar=baz',
     type: '@@redux-router/foo'
   })
 
   t.equal(result.handler, handler)
+  t.equal(result.hash, '#quux')
   t.equal(result.pathname, '/foo')
   t.equal(result.search, '?bar=baz')
   t.equal(result.type, '@@redux-router/foo')

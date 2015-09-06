@@ -5,7 +5,14 @@ import { navigate, pop, replace } from '../lib/actions'
 test('navigate action', t => {
   t.plan(1)
 
-  t.deepEqual(navigate('/foo', '?bar=baz'), {
+  const action = navigate({
+    pathname: '/foo',
+    search: '?bar=baz',
+    hash: '#quux'
+  })
+
+  t.deepEqual(action, {
+    hash: '#quux',
     pathname: '/foo',
     search: '?bar=baz',
     type: NAVIGATE
@@ -15,7 +22,14 @@ test('navigate action', t => {
 test('pop action', t => {
   t.plan(1)
 
-  t.deepEqual(pop('/foo', '?bar=baz'), {
+  const action = pop({
+    pathname: '/foo',
+    search: '?bar=baz',
+    hash: '#quux'
+  })
+
+  t.deepEqual(action, {
+    hash: '#quux',
     pathname: '/foo',
     search: '?bar=baz',
     type: POP
@@ -25,7 +39,14 @@ test('pop action', t => {
 test('replace action', t => {
   t.plan(1)
 
-  t.deepEqual(replace('/foo', '?bar=baz'), {
+  const action = replace({
+    pathname: '/foo',
+    search: '?bar=baz',
+    hash: '#quux'
+  })
+
+  t.deepEqual(action, {
+    hash: '#quux',
     pathname: '/foo',
     search: '?bar=baz',
     type: REPLACE

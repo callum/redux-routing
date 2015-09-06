@@ -13,7 +13,8 @@ export default class Handler extends Component {
       <ol>
         <li><a href="/" onClick={this.onNavigate.bind(this)}>/</a></li>
         <li><a href="/foo" onClick={this.onNavigate.bind(this)}>/foo</a></li>
-        <li><a href="/foo/bar?lol=1" onClick={this.onNavigate.bind(this)}>/foo/bar</a></li>
+        <li><a href="/foo/bar" onClick={this.onNavigate.bind(this)}>/foo/bar</a></li>
+        <li><a href="/foo/bar?baz=quux#123" onClick={this.onNavigate.bind(this)}>/foo/bar?baz=quux#123</a></li>
         <li><a href="/foo/bar/baz" onClick={this.onNavigate.bind(this)}>/foo/bar/baz</a></li>
       </ol>
     </div>
@@ -21,7 +22,13 @@ export default class Handler extends Component {
 
   onNavigate (event) {
     event.preventDefault()
+
     const anchor = event.target
-    this.props.dispatch(navigate(anchor.pathname, anchor.search))
+
+    this.props.dispatch(navigate({
+      hash: anchor.hash,
+      pathname: anchor.pathname,
+      search: anchor.search
+    }))
   }
 }

@@ -9,21 +9,25 @@ test('initial state', t => {
 
 function action (type) {
   return {
-    matcher: 'foo',
-    params: 'bar',
-    pathname: 'baz',
-    query: 'quux',
-    search: 'norf',
+    hash: 'foo',
+    matcher: 'bar',
+    params: 'baz',
+    pathname: 'quux',
+    query: 'foo',
+    search: 'bar',
+    url: 'baz',
     type
   }
 }
 
 const expected = {
-  matcher: 'foo',
-  params: 'bar',
-  pathname: 'baz',
-  query: 'quux',
-  search: 'norf'
+  hash: 'foo',
+  matcher: 'bar',
+  params: 'baz',
+  pathname: 'quux',
+  query: 'foo',
+  search: 'bar',
+  url: 'baz'
 }
 
 test('handle navigate', t => {
