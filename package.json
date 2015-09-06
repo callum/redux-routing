@@ -17,6 +17,7 @@
   "scripts": {
     "build": "babel -e 0 src --out-dir lib",
     "clean": "rimraf lib",
+    "postversion": "git push && git push --tags",
     "prepublish": "npm run clean && npm run build",
     "test": "browserify test/*.js -t [ babelify --stage 0 ] | tape-run"
   },
