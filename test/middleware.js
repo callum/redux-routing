@@ -1,8 +1,8 @@
 import 'babelify/polyfill'
 
 import test from 'tape'
-import createMiddleware from '../lib/createMiddleware'
-import createRouter from '../lib/createRouter'
+import createMiddleware from '../src/createMiddleware'
+import createRouter from '../src/createRouter'
 
 function noop () {
 }

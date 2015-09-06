@@ -1,7 +1,7 @@
 import React from 'react'
 import { applyMiddleware, createStore } from 'redux'
 import { Provider } from 'react-redux'
-import { createMiddleware, createRouter, history, replace, reducer } from '../'
+import { createMiddleware, createRouter, history, replace, reducer } from '../src'
 import Handler from './Handler'
 
 const router = createRouter(history)

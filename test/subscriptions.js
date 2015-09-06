@@ -1,7 +1,7 @@
 import 'babelify/polyfill'
 
 import test from 'tape'
-import createRouter from '../lib/createRouter'
+import createRouter from '../src/createRouter'
 
 test('add subscriber to set', t => {
   t.plan(1)

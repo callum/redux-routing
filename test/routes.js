@@ -2,7 +2,7 @@ import 'babelify/polyfill'
 
 import test from 'tape'
 import Path from 'path-parser'
-import createRouter from '../lib/createRouter'
+import createRouter from '../src/createRouter'
 
 test('adding a route', t => {
   t.plan(3)

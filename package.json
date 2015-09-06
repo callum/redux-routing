@@ -1,8 +1,8 @@
 {
   "name": "redux-routing",
   "description": "Agnostic routing built on top of redux",
-  "main": "build-index.js",
-  "jsnext:main": "index.js",
+  "main": "lib/index.js",
+  "jsnext:main": "src/index.js",
   "dependencies": {
     "path-parser": "^0.3.2"
   },
@@ -15,8 +15,8 @@
     "tape-run": "^1.1.0"
   },
   "scripts": {
-    "build": "babel -e 0 index.js -o build-index.js && babel -e 0 lib --out-dir build",
-    "clean": "rimraf build-index.js build",
+    "build": "babel -e 0 src --out-dir lib",
+    "clean": "rimraf lib",
     "postpublush": "npm run clean && git push && git push --tags",
     "prepublish": "npm run clean && npm run build",
     "test": "browserify test/*.js -t [ babelify --stage 0 ] | tape-run"

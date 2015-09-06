@@ -1,6 +1,6 @@
 import test from 'tape'
-import { NAVIGATE, POP, REPLACE } from '../lib/constants'
-import { navigate, pop, replace } from '../lib/actions'
+import { NAVIGATE, POP, REPLACE } from '../src/constants'
+import { navigate, pop, replace } from '../src/actions'
 
 test('navigate action', t => {
   t.plan(1)

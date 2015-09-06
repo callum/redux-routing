@@ -1,6 +1,6 @@
 import test from 'tape'
-import { NAVIGATE, POP, REPLACE } from '../lib/constants'
-import reducer from '../lib/reducer'
+import { NAVIGATE, POP, REPLACE } from '../src/constants'
+import reducer from '../src/reducer'
 
 test('initial state', t => {
   t.plan(1)
