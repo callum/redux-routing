@@ -36,5 +36,6 @@
   "bugs": {
     "url": "https://github.com/callum/redux-routing/issues"
   },
-  "homepage": "https://github.com/callum/redux-routing"
+  "homepage": "https://github.com/callum/redux-routing",
+  "version": "0.0.1"
 }
