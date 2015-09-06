@@ -20,4 +20,4 @@ router.subscribe(Handler => {
   </Provider>, document.getElementById('root'))
 })
 
-store.dispatch(replace({ pathname: '/' }))
+store.dispatch(replace(window.location))

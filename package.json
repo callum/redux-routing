@@ -3,8 +3,7 @@
   "description": "Routing with redux",
   "main": "index.js",
   "dependencies": {
-    "path-parser": "^0.3.2",
-    "qs": "^5.0.0"
+    "path-parser": "^0.3.2"
   },
   "devDependencies": {
     "babelify": "^6.3.0",
