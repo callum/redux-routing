@@ -1,6 +1,6 @@
 {
   "name": "redux-routing",
-  "description": "Agnostic routing built on top of redux",
+  "description": "Library-agnostic routing built on top of redux",
   "main": "lib/index.js",
   "jsnext:main": "src/index.js",
   "dependencies": {
