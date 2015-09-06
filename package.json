@@ -1,5 +1,5 @@
 {
-  "name": "redux-router",
+  "name": "redux-routing",
   "description": "Agnostic routing built on top of redux",
   "main": "build-index.js",
   "jsnext:main": "index.js",
@@ -23,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/callum/redux-router"
+    "url": "https://github.com/callum/redux-routing"
   },
   "keywords": [
     "history",
@@ -34,7 +34,7 @@
   "author": "Callum Jefferies <callum@callumj.uk> (http://callumj.uk/)",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/callum/redux-router/issues"
+    "url": "https://github.com/callum/redux-routing/issues"
   },
-  "homepage": "https://github.com/callum/redux-router"
+  "homepage": "https://github.com/callum/redux-routing"
 }

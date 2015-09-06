@@ -1,6 +1,6 @@
 # example
 
-React application using redux-router
+React application using redux-routing
 
 ## quick start
 

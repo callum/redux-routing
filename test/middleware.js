@@ -7,7 +7,7 @@ import createRouter from '../lib/createRouter'
 function noop () {
 }
 
-test('ignore actions outside of redux-router', t => {
+test('ignore actions outside of redux-routing', t => {
   t.plan(1)
 
   function next (action) {
@@ -27,7 +27,7 @@ test('throws on invalid route', t => {
     middleware()()({
       pathname: '/foo',
       search: '?bar=baz',
-      type: '@@redux-router/foo'
+      type: '@@redux-routing/foo'
     })
   })
 })
@@ -51,14 +51,14 @@ test('calling next and returning a value', t => {
     hash: '#quux',
     pathname: '/foo',
     search: '?bar=baz',
-    type: '@@redux-router/foo'
+    type: '@@redux-routing/foo'
   })
 
   t.equal(result.handler, handler)
   t.equal(result.hash, '#quux')
   t.equal(result.pathname, '/foo')
   t.equal(result.search, '?bar=baz')
-  t.equal(result.type, '@@redux-router/foo')
+  t.equal(result.type, '@@redux-routing/foo')
 })
 
 test('calling persistence', t => {
@@ -72,7 +72,7 @@ test('calling persistence', t => {
 
   middleware()(noop)({
     pathname: '/foo',
-    type: '@@redux-router/foo'
+    type: '@@redux-routing/foo'
   })
 })
 
@@ -87,6 +87,6 @@ test('calling notify', t => {
 
   middleware()(noop)({
     pathname: '/foo',
-    type: '@@redux-router/foo'
+    type: '@@redux-routing/foo'
   })
 })
