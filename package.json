@@ -19,7 +19,7 @@
     "clean": "rimraf build-index.js build",
     "postpublush": "npm run clean && git push && git push --tags",
     "prepublish": "npm run clean && npm run build",
-    "test": "browserify test/*.js | tape-run"
+    "test": "browserify test/*.js -t [ babelify --stage 0 ] | tape-run"
   },
   "repository": {
     "type": "git",
