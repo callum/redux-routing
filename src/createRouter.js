@@ -11,16 +11,24 @@ export default function createRouter (persistence = () => {}) {
   const routes = new Set()
 
   function match (location) {
-    const { hash, pathname, search } = location
+    if (typeof location === 'string') {
+      location = url.parse(location)
+    }
 
     for (let route of routes) {
-      const match = route.path.match(pathname)
+      const match = route.path.match(location.pathname)
 
       if (match) {
         let query
 
-        if (search) {
-          query = querystring.parse(search.slice(1))
+        location = {
+          hash: location.hash,
+          pathname: location.pathname,
+          search: location.search
+        }
+
+        if (location.search) {
+          query = querystring.parse(location.search.slice(1))
         }
 
         return {
@@ -28,10 +36,8 @@ export default function createRouter (persistence = () => {}) {
           matcher: route.matcher,
           params: match,
           url: url.format(location),
-          hash,
-          pathname,
-          query,
-          search
+          location,
+          query
         }
       }
     }

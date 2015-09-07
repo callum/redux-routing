@@ -6,12 +6,10 @@ export default function reducer (route = {}, action) {
     case POP:
     case REPLACE:
       return {
-        hash: action.hash,
+        location: action.location,
         matcher: action.matcher,
         params: action.params,
-        pathname: action.pathname,
         query: action.query,
-        search: action.search,
         url: action.url
       }
 

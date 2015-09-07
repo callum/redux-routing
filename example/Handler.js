@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { navigate } from '../'
+import { navigate } from '../src'
 
 @connect(route => ({ route }))
 export default class Handler extends Component {

@@ -25,8 +25,10 @@ test('throws on invalid route', t => {
 
   t.throws(() => {
     middleware()()({
-      pathname: '/foo',
-      search: '?bar=baz',
+      location: {
+        pathname: '/foo',
+        search: '?bar=baz',
+      },
       type: '@@redux-routing/foo'
     })
   })
@@ -48,16 +50,18 @@ test('calling next and returning a value', t => {
   const middleware = createMiddleware(router)
 
   const result = middleware()(next)({
-    hash: '#quux',
-    pathname: '/foo',
-    search: '?bar=baz',
+    location: {
+      hash: '#quux',
+      pathname: '/foo',
+      search: '?bar=baz'
+    },
     type: '@@redux-routing/foo'
   })
 
   t.equal(result.handler, handler)
-  t.equal(result.hash, '#quux')
-  t.equal(result.pathname, '/foo')
-  t.equal(result.search, '?bar=baz')
+  t.equal(result.location.hash, '#quux')
+  t.equal(result.location.pathname, '/foo')
+  t.equal(result.location.search, '?bar=baz')
   t.equal(result.type, '@@redux-routing/foo')
 })
 
@@ -71,7 +75,9 @@ test('calling persistence', t => {
   const middleware = createMiddleware(router)
 
   middleware()(noop)({
-    pathname: '/foo',
+    location: {
+      pathname: '/foo'
+    },
     type: '@@redux-routing/foo'
   })
 })
@@ -86,7 +92,9 @@ test('calling notify', t => {
   const middleware = createMiddleware(router)
 
   middleware()(noop)({
-    pathname: '/foo',
+    location: {
+      pathname: '/foo',
+    },
     type: '@@redux-routing/foo'
   })
 })

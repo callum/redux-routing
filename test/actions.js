@@ -12,9 +12,11 @@ test('navigate action', t => {
   })
 
   t.deepEqual(action, {
-    hash: '#quux',
-    pathname: '/foo',
-    search: '?bar=baz',
+    location: {
+      hash: '#quux',
+      pathname: '/foo',
+      search: '?bar=baz',
+    },
     type: NAVIGATE
   })
 })
@@ -29,9 +31,11 @@ test('pop action', t => {
   })
 
   t.deepEqual(action, {
-    hash: '#quux',
-    pathname: '/foo',
-    search: '?bar=baz',
+    location: {
+      hash: '#quux',
+      pathname: '/foo',
+      search: '?bar=baz',
+    },
     type: POP
   })
 })
@@ -46,9 +50,11 @@ test('replace action', t => {
   })
 
   t.deepEqual(action, {
-    hash: '#quux',
-    pathname: '/foo',
-    search: '?bar=baz',
+    location: {
+      hash: '#quux',
+      pathname: '/foo',
+      search: '?bar=baz',
+    },
     type: REPLACE
   })
 })

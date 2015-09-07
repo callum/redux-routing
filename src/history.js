@@ -2,20 +2,18 @@ import { pop } from './actions'
 import { NAVIGATE, REPLACE } from './constants'
 
 export function history (store, action) {
-  const { hash, pathname, search, url } = action
-
   const curr = window.history.state
-  const next = { hash, pathname, search }
+  const next = action.location
 
   switch (action.type) {
     case NAVIGATE:
       if (!equal(curr, next)) {
-        window.history.pushState(next, null, url)
+        window.history.pushState(next, null, action.url)
       }
       break
 
     case REPLACE:
-      window.history.replaceState(next, null, url)
+      window.history.replaceState(next, null, action.url)
       break
   }
 

@@ -9,24 +9,28 @@ test('initial state', t => {
 
 function action (type) {
   return {
-    hash: 'foo',
+    location: {
+      hash: 'foo',
+      pathname: 'quux',
+      search: 'bar'
+    },
     matcher: 'bar',
     params: 'baz',
-    pathname: 'quux',
     query: 'foo',
-    search: 'bar',
     url: 'baz',
     type
   }
 }
 
 const expected = {
-  hash: 'foo',
+  location: {
+    hash: 'foo',
+    pathname: 'quux',
+    search: 'bar'
+  },
   matcher: 'bar',
   params: 'baz',
-  pathname: 'quux',
   query: 'foo',
-  search: 'bar',
   url: 'baz'
 }
 

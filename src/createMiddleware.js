@@ -1,10 +1,10 @@
 export default function createMiddleware (router) {
   return store => next => action => {
     if (/^@@redux-routing/.test(action.type)) {
-      const match = router.match(action)
+      const match = router.match(action.location)
 
       if (!match) {
-        throw new Error(`Missing route for '${action.pathname}'`)
+        throw new Error(`Missing route for '${action.location.pathname}'`)
       }
 
       const result = next({ ...action, ...match })
