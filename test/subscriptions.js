@@ -1,7 +1,7 @@
 import 'babelify/polyfill'
 
 import test from 'tape'
-import createRouter from '../src/createRouter'
+import Router from '../src/Router'
 
 test('add subscriber to set', t => {
   t.plan(1)
@@ -9,7 +9,7 @@ test('add subscriber to set', t => {
   function subscriber () {
   }
 
-  const router = createRouter()
+  const router = new Router()
   router.subscribe(subscriber)
   t.ok(router.subscribers.has(subscriber))
 })
@@ -20,11 +20,11 @@ test('delete subscriber from set', t => {
   function subscriber () {
   }
 
-  const router = createRouter()
-  const unsubscribe = router.subscribe(subscriber)
+  const router = new Router()
+  router.subscribe(subscriber)
 
   t.ok(router.subscribers.has(subscriber))
-  unsubscribe()
+  router.unsubscribe(subscriber)
   t.notOk(router.subscribers.has(subscriber))
 })
 
@@ -34,7 +34,7 @@ test('notify', t => {
   function callback () {
   }
 
-  const router = createRouter()
+  const router = new Router()
   router.subscribe(cb => t.equal(cb, callback))
   router.notify(callback)
 })

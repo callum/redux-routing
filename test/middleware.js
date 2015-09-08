@@ -2,10 +2,41 @@ import 'babelify/polyfill'
 
 import test from 'tape'
 import createMiddleware from '../src/createMiddleware'
-import createRouter from '../src/createRouter'
 
 function noop () {
 }
+
+class History {
+  constructor () {
+  }
+
+  notify () {
+  }
+}
+
+class Router {
+  constructor () {
+    this.history = History
+  }
+
+  notify () {
+  }
+}
+
+test('sets up history', t => {
+  t.plan(1)
+
+  const router = new Router()
+  const middleware = createMiddleware(router)
+
+  router.history = class {
+    constructor () {
+      t.pass()
+    }
+  }
+
+  middleware()
+})
 
 test('ignore actions outside of redux-routing', t => {
   t.plan(1)
@@ -14,40 +45,19 @@ test('ignore actions outside of redux-routing', t => {
     t.equal(action, 'foo')
   }
 
-  const middleware = createMiddleware()
+  const middleware = createMiddleware(new Router())
   middleware()(next)('foo')
 })
 
-test('throws on invalid route', t => {
-  t.plan(1)
-
-  const middleware = createMiddleware(createRouter())
-
-  t.throws(() => {
-    middleware()()({
-      location: {
-        pathname: '/foo',
-        search: '?bar=baz',
-      },
-      type: '@@redux-routing/foo'
-    })
-  })
-})
-
 test('calling next and returning a value', t => {
-  t.plan(6)
-
-  function handler () {
-  }
+  t.plan(5)
 
   function next (result) {
     t.pass()
     return result
   }
 
-  const router = createRouter()
-  router.route('/foo', handler)
-  const middleware = createMiddleware(router)
+  const middleware = createMiddleware(new Router())
 
   const result = middleware()(next)({
     location: {
@@ -58,21 +68,27 @@ test('calling next and returning a value', t => {
     type: '@@redux-routing/foo'
   })
 
-  t.equal(result.handler, handler)
-  t.equal(result.location.hash, '#quux')
-  t.equal(result.location.pathname, '/foo')
-  t.equal(result.location.search, '?bar=baz')
+  t.deepEqual(result.location, {
+    hash: '#quux',
+    pathname: '/foo',
+    search: '?bar=baz'
+  })
   t.equal(result.type, '@@redux-routing/foo')
+  t.equal(result.url, '/foo?bar=baz#quux')
+  t.deepEqual(result.query, { bar: 'baz' })
 })
 
-test('calling persistence', t => {
+test('notifying history', t => {
   t.plan(1)
 
-  const router = createRouter()
-  router.persistence = () => t.pass()
-  router.route('/foo')
-
+  const router = new Router()
   const middleware = createMiddleware(router)
+
+  router.history = class {
+    notify () {
+      t.pass()
+    }
+  }
 
   middleware()(noop)({
     location: {
@@ -85,11 +101,12 @@ test('calling persistence', t => {
 test('calling notify', t => {
   t.plan(1)
 
-  const router = createRouter()
-  router.notify = () => t.pass()
-  router.route('/foo')
-
+  const router = new Router()
   const middleware = createMiddleware(router)
+
+  router.notify = function notify () {
+    t.pass()
+  }
 
   middleware()(noop)({
     location: {

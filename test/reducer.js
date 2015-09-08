@@ -14,8 +14,6 @@ function action (type) {
       pathname: 'quux',
       search: 'bar'
     },
-    matcher: 'bar',
-    params: 'baz',
     query: 'foo',
     url: 'baz',
     type
@@ -28,8 +26,6 @@ const expected = {
     pathname: 'quux',
     search: 'bar'
   },
-  matcher: 'bar',
-  params: 'baz',
   query: 'foo',
   url: 'baz'
 }

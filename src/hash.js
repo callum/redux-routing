@@ -2,18 +2,23 @@ import url from 'url'
 import { pop } from './actions'
 import { NAVIGATE, REPLACE } from './constants'
 
-export function hash (store, action) {
-  switch (action.type) {
-    case NAVIGATE:
-    case REPLACE:
-      window.location.hash = action.url
-      break
+export default class Hash {
+  constructor () {
+    window.onhashchange = () => {
+      const hash = Hash.parse(window.location.hash)
+      store.dispatch(pop(hash))
+    }
   }
 
-  window.onhashchange = () =>
-    store.dispatch(pop(parse(window.location.hash)))
-}
+  notify (action) {
+    const { type } = action
 
-export function parse (hash) {
-  return url.parse(hash.slice(1))
+    if (type === NAVIGATE || type === REPLACE) {
+      window.location.hash = action.url
+    }
+  }
+
+  static parse (hash) {
+    return url.parse(hash.slice(1))
+  }
 }

@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { navigate } from '../src'
 
-@connect(route => ({ route }))
 export default class Handler extends Component {
   render () {
     return <div>
@@ -16,19 +14,13 @@ export default class Handler extends Component {
         <li><a href="/foo/bar" onClick={this.onNavigate.bind(this)}>/foo/bar</a></li>
         <li><a href="/foo/bar?baz=quux#123" onClick={this.onNavigate.bind(this)}>/foo/bar?baz=quux#123</a></li>
         <li><a href="/foo/bar/baz" onClick={this.onNavigate.bind(this)}>/foo/bar/baz</a></li>
+        <li><a href="/baz" onClick={this.onNavigate.bind(this)}>/baz</a></li>
       </ol>
     </div>
   }
 
   onNavigate (event) {
     event.preventDefault()
-
-    const anchor = event.target
-
-    this.props.dispatch(navigate({
-      hash: anchor.hash,
-      pathname: anchor.pathname,
-      search: anchor.search
-    }))
+    this.props.dispatch(navigate(event.target))
   }
 }

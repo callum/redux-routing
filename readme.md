@@ -1,12 +1,19 @@
 # redux-routing
 
-Library-agnostic routing built on top of [redux](https://github.com/rackt/redux). Keep your router state with the rest of your application state, dispatching actions to update the current route.
+[![Build Status](https://travis-ci.org/callum/redux-routing.svg)](https://travis-ci.org/callum/redux-routing)
 
-redux-routing can persist state using a hash or the HTML5 History API.
+Universal routing built on top of [redux](https://github.com/rackt/redux).
+
+## how it works
+
+1. Create a router
+2. Define routes with handlers
+3. Subscribe to route changes
+4. Dispatch actions to update the route
+
+redux-routing retains browser history using a hash or the HTML5 History API.
 
 For usage with React see [example/main.js](example/main.js)
-
-[![Build Status](https://travis-ci.org/callum/redux-routing.svg)](https://travis-ci.org/callum/redux-routing)
 
 ## install
 
@@ -18,44 +25,42 @@ npm install redux-routing --save
 
 ```js
 import { applyMiddleware, createStore } from 'redux'
-import { createMiddleware, createRouter, history, navigate, replace, reducer } from 'redux-routing'
+import { createMiddleware, History, navigate, replace, reducer, Router } from 'redux-routing'
 
 // create a router using html5 history
-const router = createRouter(history)
-
-// configure routes, mapping urls to handlers
-router.route('/', () => console.log('foo'))
-router.route('/foo', () => console.log('bar'))
-router.route('/foo/:bar', () => console.log('baz'))
-
-// subscribe to changes and call handlers as defined above
-router.subscribe(handler => handler())
-
-// create routing middleware and set up store
+const router = new Router(History)
 const middleware = createMiddleware(router)
+
+// set up store with middleware
 const createStoreWithMiddleware = applyMiddleware(middleware)(createStore)
 const store = createStoreWithMiddleware(reducer)
 
-// start routing
-store.dispatch(replace({ pathname: '/' }))
-// logs 'foo'
-store.dispatch(navigate({ pathname: '/foo' }))
-// logs 'bar'
-store.dispatch(navigate({ pathname: '/foo/123' }))
-// logs 'baz'
-store.dispatch(navigate({ pathname: '/foo/123', search: '?name=callum' }))
-// logs 'baz'
+// define routes
+router.route('/', () => console.log('routed to /'))
+router.route('/foo', () => console.log('routed to /foo'))
+router.route('/foo/:bar', () => console.log('routed to /foo/:bar'))
 
+// subscribe to changes
+router.subscribe(route => {
+  const match = router.match(route.location)
+
+  if (match) {
+    match.handler()
+  } else {
+    console.log('404 not found')
+  }
+})
+
+// start routing
+store.dispatch(replace('/'))
+// logs 'routed to /'
+store.dispatch(navigate('/foo'))
+// logs 'routed to /foo'
+store.dispatch(navigate('/foo/123'))
+// logs 'routed to /foo/:bar'
+store.dispatch(navigate('/foo/bar/baz'))
+// logs '404 not found'
+
+// query the router state
 console.log(store.getState())
-// {
-//   matcher: '/foo/:bar',
-//   params: {
-//     bar: 123
-//   },
-//   pathname: '/foo/123',
-//   query: {
-//     name: 'callum'
-//   },
-//   search: '?name=callum'
-// }
 ```
