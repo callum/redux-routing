@@ -1,29 +1,42 @@
-import { pop } from './actions'
-import { NAVIGATE, REPLACE } from './constants'
-
-function isEqualLocation (a, b) {
-  return a.hash === b.hash &&
-         a.pathname === b.pathname &&
-         a.search === b.search
-}
+import { replace } from './actions'
+import { NAVIGATE } from './constants'
 
 export default class History {
   constructor (store) {
-    window.onpopstate = event => store.dispatch(pop(event.state))
+    this.store = store
   }
 
-  notify (action) {
-    const { type, url } = action
+  listen () {
+    window.addEventListener('popstate', event => {
+      this.onPopUrl(event.state)
+    }, false)
+  }
 
-    const curr = window.history.state
-    const next = action.location
+  update (action) {
+    const url = this.getCurrentUrl()
 
-    if (type === NAVIGATE && !isEqualLocation(curr, next)) {
-      window.history.pushState(next, null, url)
+    if (action.type === NAVIGATE) {
+      if (url && action.url !== url) {
+        this.pushUrl(action.url)
+      } else {
+        this.replaceUrl(action.url)
+      }
     }
+  }
 
-    if (type === REPLACE) {
-      window.history.replaceState(next, null, url)
-    }
+  pushUrl (url) {
+    window.history.pushState(url, null, url)
+  }
+
+  replaceUrl (url) {
+    window.history.replaceState(url, null, url)
+  }
+
+  onPopUrl (url) {
+    this.store.dispatch(replace(url))
+  }
+
+  getCurrentUrl () {
+    return window.history.state
   }
 }

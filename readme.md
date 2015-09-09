@@ -25,7 +25,7 @@ npm install redux-routing --save
 
 ```js
 import { applyMiddleware, createStore } from 'redux'
-import { createMiddleware, History, navigate, replace, reducer, Router } from 'redux-routing'
+import { createMiddleware, History, navigate, reducer, Router } from 'redux-routing'
 
 // create a router using html5 history
 const router = new Router(History)
@@ -52,7 +52,7 @@ router.subscribe(route => {
 })
 
 // start routing
-store.dispatch(replace('/'))
+store.dispatch(navigate('/'))
 // logs 'routed to /'
 store.dispatch(navigate('/foo'))
 // logs 'routed to /foo'

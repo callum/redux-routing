@@ -2,12 +2,8 @@ import Path from 'path-parser'
 import url from 'url'
 
 export default class Router {
-  constructor (history = () => {}) {
-    if (typeof history !== 'function') {
-      throw new Error('Expected history to be a function')
-    }
-
-    this.history = history
+  constructor (History) {
+    this.History = History
     this.routes = new Set()
     this.subscribers = new Set()
   }

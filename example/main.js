@@ -1,7 +1,7 @@
 import React from 'react'
 import { applyMiddleware, createStore } from 'redux'
 import { Provider } from 'react-redux'
-import { createMiddleware, History, replace, reducer, Router } from '../src'
+import { createMiddleware, History, navigate, reducer, Router } from '../src'
 import Handler from './Handler'
 import Root from './Root'
 
@@ -15,7 +15,7 @@ router.route('/foo/:bar', Handler)
 const createStoreWithMiddleware = applyMiddleware(middleware)(createStore)
 const store = createStoreWithMiddleware(reducer)
 
-store.dispatch(replace(window.location))
+store.dispatch(navigate(window.location))
 
 React.render(<Provider store={store}>
   {() => <Root router={router} />}

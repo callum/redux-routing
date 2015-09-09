@@ -3,8 +3,14 @@ import url from 'url'
 
 export default function createMiddleware (router) {
   return store => {
-    const History = router.history
-    const history = new History(store)
+    let history
+
+    const { History } = router
+
+    if (History) {
+      history = new History(store)
+      history.listen()
+    }
 
     return next => action => {
       if (!/^@@redux-routing/.test(action.type)) {
@@ -36,7 +42,10 @@ export default function createMiddleware (router) {
         query
       })
 
-      history.notify(result)
+      if (history) {
+        history.update(result)
+      }
+
       router.notify(result)
 
       return result

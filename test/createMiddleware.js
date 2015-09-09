@@ -6,35 +6,27 @@ import createMiddleware from '../src/createMiddleware'
 function noop () {
 }
 
-class History {
-  constructor () {
-  }
-
-  notify () {
-  }
-}
-
 class Router {
-  constructor () {
-    this.history = History
-  }
-
   notify () {
   }
 }
 
 test('sets up history', t => {
-  t.plan(1)
+  t.plan(2)
 
   const router = new Router()
-  const middleware = createMiddleware(router)
 
-  router.history = class {
+  router.History = class History {
     constructor () {
+      t.pass()
+    }
+
+    listen () {
       t.pass()
     }
   }
 
+  const middleware = createMiddleware(router)
   middleware()
 })
 
@@ -84,8 +76,11 @@ test('notifying history', t => {
   const router = new Router()
   const middleware = createMiddleware(router)
 
-  router.history = class {
-    notify () {
+  router.History = class History {
+    listen () {
+    }
+
+    update () {
       t.pass()
     }
   }

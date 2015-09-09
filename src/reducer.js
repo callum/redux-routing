@@ -1,9 +1,8 @@
-import { NAVIGATE, POP, REPLACE } from './constants'
+import { NAVIGATE, REPLACE } from './constants'
 
 export default function reducer (route = {}, action) {
   switch (action.type) {
   case NAVIGATE:
-  case POP:
   case REPLACE:
     return {
       location: action.location,

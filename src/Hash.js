@@ -1,24 +1,36 @@
-import url from 'url'
-import { pop } from './actions'
-import { NAVIGATE, REPLACE } from './constants'
+import { replace } from './actions'
+import { NAVIGATE } from './constants'
+
+function hashToUrl (hash) {
+  return hash.slice(1) || '/'
+}
 
 export default class Hash {
-  constructor () {
-    window.onhashchange = () => {
-      const hash = Hash.parse(window.location.hash)
-      store.dispatch(pop(hash))
+  constructor (store) {
+    this.store = store
+  }
+
+  listen () {
+    window.addEventListener('hashchange', () => {
+      this.onPopUrl(hashToUrl(window.location.hash))
+    }, false)
+  }
+
+  update (action) {
+    this.url = action.url
+
+    if (action.type === NAVIGATE) {
+      this.pushUrl(action.url)
     }
   }
 
-  notify (action) {
-    const { type } = action
-
-    if (type === NAVIGATE || type === REPLACE) {
-      window.location.hash = action.url
-    }
+  pushUrl (url) {
+    window.location.hash = url
   }
 
-  static parse (hash) {
-    return url.parse(hash.slice(1))
+  onPopUrl (url) {
+    if (url !== this.url) {
+      this.store.dispatch(replace(url))
+    }
   }
 }

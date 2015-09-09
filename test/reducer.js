@@ -1,5 +1,5 @@
 import test from 'tape'
-import { NAVIGATE, POP, REPLACE } from '../src/constants'
+import { NAVIGATE, REPLACE } from '../src/constants'
 import reducer from '../src/reducer'
 
 test('initial state', t => {
@@ -33,11 +33,6 @@ const expected = {
 test('handle navigate', t => {
   t.plan(1)
   t.deepEqual(reducer(undefined, action(NAVIGATE)), expected)
-})
-
-test('handle pop', t => {
-  t.plan(1)
-  t.deepEqual(reducer(undefined, action(POP)), expected)
 })
 
 test('handle replace', t => {
