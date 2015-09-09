@@ -13,7 +13,7 @@ Universal routing built on top of [redux](https://github.com/rackt/redux).
 
 redux-routing retains browser history using a hash or the HTML5 History API.
 
-For usage with React see [example/main.js](example/main.js)
+For usage with React see [example/main.js](example/main.js). See [redux-routing-universal-example](https://github.com/callum/redux-routing-universal-example) for an example of a universal application that renders on both client and server.
 
 ## install
 
