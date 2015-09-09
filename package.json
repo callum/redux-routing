@@ -19,7 +19,7 @@
     "tape-run": "^1.1.0"
   },
   "scripts": {
-    "build": "babel -e 0 src --out-dir lib",
+    "build": "babel src --out-dir lib --stage 0",
     "check": "npm run lint && npm test",
     "clean": "rimraf lib",
     "lint": "eslint src test",
