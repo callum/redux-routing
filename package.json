@@ -24,7 +24,6 @@
     "clean": "rimraf lib",
     "lint": "eslint src test",
     "prepublish": "npm run clean && npm run build",
-    "preversion": "npm run check",
     "test": "browserify test/*.js -t [ babelify --stage 0 ] | tape-run"
   },
   "repository": {
