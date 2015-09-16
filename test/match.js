@@ -1,11 +1,11 @@
 import 'babelify/polyfill'
 
 import test from 'tape'
-import Router from '../src/Router'
+import match from '../src/match'
 
 test('no match', t => {
   t.plan(1)
-  t.equal(new Router().match({ pathname: '/foo' }), undefined)
+  t.equal(match({ pathname: '/foo' }, []), undefined)
 })
 
 test('a match', t => {
@@ -14,23 +14,38 @@ test('a match', t => {
   function handler () {
   }
 
-  const router = new Router()
-  router.route('/foo', handler)
-  const match = router.match({ pathname: '/foo' })
+  const routes = [
+    {
+      handler,
+      path: '/foo',
+      matcher: {
+        match: () => ({})
+      }
+    }
+  ]
 
-  t.deepEqual(match, {
-    matcher: '/foo',
+  const matched = match({ pathname: '/foo' }, routes)
+
+  t.deepEqual(matched, {
+    handler,
     params: {},
-    handler
+    path: '/foo'
   })
 })
 
 test('location as a string', t => {
   t.plan(1)
 
-  const router = new Router()
-  router.route('/foo')
-  const match = router.match('/foo')
+  const matched = match('/foo', [{ matcher: '/foo' }])
+  t.ok(matched)
+})
 
-  t.ok(match)
+test('a map for routes', t => {
+  t.plan(1)
+
+  const routes = new Map([
+    ['foo', { matcher: '/foo' }]
+  ])
+
+  t.doesNotThrow(() => match('/foo', routes))
 })

@@ -1,6 +1,7 @@
 export createMiddleware from './createMiddleware'
 export Hash from './Hash'
 export History from './History'
+export match from './match'
 export reducer from './reducer'
-export Router from './Router'
+export route from './route'
 export { navigate, replace } from './actions'

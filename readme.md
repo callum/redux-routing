@@ -13,6 +13,8 @@ Universal routing built on top of [redux](https://github.com/rackt/redux).
 
 redux-routing retains browser history using a hash or the HTML5 History API.
 
+See [path-parser](https://github.com/troch/path-parser) for detail on defining routes.
+
 For usage with React see [example/main.js](example/main.js). See [redux-routing-universal-example](https://github.com/callum/redux-routing-universal-example) for an example of a universal application that renders on both client and server.
 
 ## install
@@ -21,32 +23,35 @@ For usage with React see [example/main.js](example/main.js). See [redux-routing-
 npm install redux-routing --save
 ```
 
-## example
+## guide
+
+Basic usage example
 
 ```js
 import { applyMiddleware, createStore } from 'redux'
-import { createMiddleware, History, navigate, reducer, Router } from 'redux-routing'
+import { createMiddleware, History, match, navigate, reducer, route } from 'redux-routing'
 
-// create a router using html5 history
-const router = new Router(History)
-const middleware = createMiddleware(router)
+// define routes
+const routes = [
+  route('/', () => console.log('routed to /')),
+  route('/foo', () => console.log('routed to /foo')),
+  route('/foo/:bar', () => console.log('routed to /foo/:bar'))
+]
+
+// set up routing middleware using html5 history
+const middleware = createMiddleware(History)
 
 // set up store with middleware
 const createStoreWithMiddleware = applyMiddleware(middleware)(createStore)
 const store = createStoreWithMiddleware(reducer)
 
-// define routes
-router.route('/', () => console.log('routed to /'))
-router.route('/foo', () => console.log('routed to /foo'))
-router.route('/foo/:bar', () => console.log('routed to /foo/:bar'))
-
 // subscribe to changes
 store.subscribe(() => {
   const route = store.getState()
-  const match = router.match(route.location)
+  const matched = match(route.location, routes)
 
-  if (match) {
-    match.handler()
+  if (matched) {
+    matched.handler()
   } else {
     console.log('404 not found')
   }
@@ -61,7 +66,21 @@ store.dispatch(navigate('/foo/123'))
 // logs 'routed to /foo/:bar'
 store.dispatch(navigate('/foo/bar/baz'))
 // logs '404 not found'
+```
 
-// query the router state
-console.log(store.getState())
+Build a URL from a route
+
+```js
+const foo = route('/foo/:bar/:baz')
+
+foo.build({ bar: 'hello', baz: 'world' })
+// /foo/hello/world
+```
+
+Named routes
+
+```js
+const routes = new Map()
+
+routes.set('foo', route('/foo/:bar'))
 ```

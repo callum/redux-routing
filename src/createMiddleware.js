@@ -21,16 +21,16 @@ export default function createMiddleware (History) {
         location = url.parse(action.location)
       }
 
-      let query
-
-      if (location.search) {
-        query = querystring.parse(location.search.slice(1))
-      }
-
       location = {
         hash: location.hash || undefined,
         pathname: location.pathname,
         search: location.search || undefined
+      }
+
+      let query
+
+      if (location.search) {
+        query = querystring.parse(location.search.slice(1))
       }
 
       const result = next({

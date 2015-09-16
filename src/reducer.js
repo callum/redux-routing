@@ -6,6 +6,7 @@ export default function reducer (route = {}, action) {
   case REPLACE:
     return {
       location: action.location,
+      params: action.params,
       query: action.query,
       url: action.url
     }
