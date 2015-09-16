@@ -5,8 +5,8 @@ import { createMiddleware, History, navigate, reducer, Router } from '../src'
 import Handler from './Handler'
 import Root from './Root'
 
-const router = new Router(History)
-const middleware = createMiddleware(router)
+const router = new Router()
+const middleware = createMiddleware(History)
 
 router.route('/', Handler)
 router.route('/foo', Handler)

@@ -6,17 +6,10 @@ import createMiddleware from '../src/createMiddleware'
 function noop () {
 }
 
-class Router {
-  notify () {
-  }
-}
-
 test('sets up history', t => {
   t.plan(2)
 
-  const router = new Router()
-
-  router.History = class History {
+  class History {
     constructor () {
       t.pass()
     }
@@ -26,7 +19,7 @@ test('sets up history', t => {
     }
   }
 
-  const middleware = createMiddleware(router)
+  const middleware = createMiddleware(History)
   middleware()
 })
 
@@ -37,7 +30,7 @@ test('ignore actions outside of redux-routing', t => {
     t.equal(action, 'foo')
   }
 
-  const middleware = createMiddleware(new Router())
+  const middleware = createMiddleware()
   middleware()(next)('foo')
 })
 
@@ -49,7 +42,7 @@ test('calling next and returning a value', t => {
     return result
   }
 
-  const middleware = createMiddleware(new Router())
+  const middleware = createMiddleware()
 
   const result = middleware()(next)({
     location: {
@@ -70,13 +63,10 @@ test('calling next and returning a value', t => {
   t.deepEqual(result.query, { bar: 'baz' })
 })
 
-test('notifying history', t => {
+test('updating history', t => {
   t.plan(1)
 
-  const router = new Router()
-  const middleware = createMiddleware(router)
-
-  router.History = class History {
+  class History {
     listen () {
     }
 
@@ -85,27 +75,11 @@ test('notifying history', t => {
     }
   }
 
+  const middleware = createMiddleware(History)
+
   middleware()(noop)({
     location: {
       pathname: '/foo'
-    },
-    type: '@@redux-routing/foo'
-  })
-})
-
-test('calling notify', t => {
-  t.plan(1)
-
-  const router = new Router()
-  const middleware = createMiddleware(router)
-
-  router.notify = function notify () {
-    t.pass()
-  }
-
-  middleware()(noop)({
-    location: {
-      pathname: '/foo',
     },
     type: '@@redux-routing/foo'
   })

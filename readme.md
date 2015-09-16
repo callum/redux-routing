@@ -41,7 +41,7 @@ router.route('/foo', () => console.log('routed to /foo'))
 router.route('/foo/:bar', () => console.log('routed to /foo/:bar'))
 
 // subscribe to changes
-router.subscribe(route => {
+store.subscribe(route => {
   const match = router.match(route.location)
 
   if (match) {

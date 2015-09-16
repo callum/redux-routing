@@ -1,11 +1,9 @@
 import querystring from 'querystring'
 import url from 'url'
 
-export default function createMiddleware (router) {
+export default function createMiddleware (History) {
   return store => {
     let history
-
-    const { History } = router
 
     if (History) {
       history = new History(store)
@@ -45,8 +43,6 @@ export default function createMiddleware (router) {
       if (history) {
         history.update(result)
       }
-
-      router.notify(result)
 
       return result
     }
