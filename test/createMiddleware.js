@@ -1,5 +1,3 @@
-import 'babelify/polyfill'
-
 import test from 'tape'
 import createMiddleware from '../src/createMiddleware'
 
@@ -45,21 +43,17 @@ test('calling next and returning a value', t => {
   const middleware = createMiddleware()
 
   const result = middleware()(next)({
-    location: {
-      hash: '#quux',
-      pathname: '/foo',
-      search: '?bar=baz'
-    },
+    href: '/foo?bar=baz#qux',
     type: '@@redux-routing/foo'
   })
 
   t.deepEqual(result.location, {
-    hash: '#quux',
+    hash: '#qux',
     pathname: '/foo',
     search: '?bar=baz'
   })
+  t.equal(result.href, '/foo?bar=baz#qux')
   t.equal(result.type, '@@redux-routing/foo')
-  t.equal(result.url, '/foo?bar=baz#quux')
   t.deepEqual(result.query, { bar: 'baz' })
 })
 
@@ -78,9 +72,7 @@ test('updating history', t => {
   const middleware = createMiddleware(History)
 
   middleware()(noop)({
-    location: {
-      pathname: '/foo'
-    },
+    href: '/foo',
     type: '@@redux-routing/foo'
   })
 })

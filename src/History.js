@@ -8,35 +8,35 @@ export default class History {
 
   listen () {
     window.addEventListener('popstate', event => {
-      this.onPopUrl(event.state)
+      this.onPopHref(event.state)
     }, false)
   }
 
   update (action) {
-    const url = this.getCurrentUrl()
+    const href = this.getCurrentHref()
 
     if (action.type === NAVIGATE) {
-      if (url && action.url !== url) {
-        this.pushUrl(action.url)
+      if (href && action.href !== href) {
+        this.pushHref(action.href)
       } else {
-        this.replaceUrl(action.url)
+        this.replaceHref(action.href)
       }
     }
   }
 
-  pushUrl (url) {
-    window.history.pushState(url, null, url)
+  pushHref (href) {
+    window.history.pushState(href, null, href)
   }
 
-  replaceUrl (url) {
-    window.history.replaceState(url, null, url)
+  replaceHref (href) {
+    window.history.replaceState(href, null, href)
   }
 
-  onPopUrl (url) {
-    this.store.dispatch(replace(url))
+  onPopHref (href) {
+    this.store.dispatch(replace(href))
   }
 
-  getCurrentUrl () {
+  getCurrentHref () {
     return window.history.state
   }
 }

@@ -5,7 +5,7 @@ import { navigate, replace } from '../src/actions'
 test('navigate action', t => {
   t.plan(1)
   t.deepEqual(navigate('foo'), {
-    location: 'foo',
+    href: 'foo',
     type: NAVIGATE
   })
 })
@@ -13,7 +13,7 @@ test('navigate action', t => {
 test('replace action', t => {
   t.plan(1)
   t.deepEqual(replace('foo'), {
-    location: 'foo',
+    href: 'foo',
     type: REPLACE
   })
 })

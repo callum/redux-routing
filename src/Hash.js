@@ -1,7 +1,7 @@
 import { replace } from './actions'
 import { NAVIGATE } from './constants'
 
-function hashToUrl (hash) {
+function hashToHref (hash) {
   return hash.slice(1) || '/'
 }
 
@@ -12,25 +12,25 @@ export default class Hash {
 
   listen () {
     window.addEventListener('hashchange', () => {
-      this.onPopUrl(hashToUrl(window.location.hash))
+      this.onPopHref(hashToHref(window.location.hash))
     }, false)
   }
 
   update (action) {
-    this.url = action.url
+    this.href = action.href
 
     if (action.type === NAVIGATE) {
-      this.pushUrl(action.url)
+      this.pushHref(action.href)
     }
   }
 
-  pushUrl (url) {
-    window.location.hash = url
+  pushHref (href) {
+    window.location.hash = href
   }
 
-  onPopUrl (url) {
-    if (url !== this.url) {
-      this.store.dispatch(replace(url))
+  onPopHref (href) {
+    if (href !== this.href) {
+      this.store.dispatch(replace(href))
     }
   }
 }

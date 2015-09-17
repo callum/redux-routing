@@ -1,22 +1,22 @@
 import React from 'react'
 import { applyMiddleware, createStore } from 'redux'
 import { Provider } from 'react-redux'
-import { createMiddleware, History, navigate, reducer, Router } from '../src'
+import { createMiddleware, History, navigate, reducer, route } from '../src'
 import Handler from './Handler'
 import Root from './Root'
 
-const router = new Router()
+const routes = [
+  route('/', Handler),
+  route('/foo', Handler),
+  route('/foo/:bar', Handler)
+]
+
 const middleware = createMiddleware(History)
-
-router.route('/', Handler)
-router.route('/foo', Handler)
-router.route('/foo/:bar', Handler)
-
 const createStoreWithMiddleware = applyMiddleware(middleware)(createStore)
 const store = createStoreWithMiddleware(reducer)
 
-store.dispatch(navigate(window.location))
+store.dispatch(navigate(window.location.href))
 
 React.render(<Provider store={store}>
-  {() => <Root router={router} />}
+  {() => <Root routes={routes} />}
 </Provider>, document.getElementById('root'))

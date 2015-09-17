@@ -21,6 +21,6 @@ export default class Handler extends Component {
 
   onNavigate (event) {
     event.preventDefault()
-    this.props.dispatch(navigate(event.target))
+    this.props.dispatch(navigate(event.target.href))
   }
 }

@@ -20,16 +20,16 @@ test('update state', t => {
   t.plan(1)
 
   const hash = new Hash()
-  hash.update({ url: '/foo' })
-  t.equal(hash.url, '/foo')
+  hash.update({ href: '/foo' })
+  t.equal(hash.href, '/foo')
 })
 
 test('push on navigate', t => {
   t.plan(1)
 
   const hash = new Hash()
-  hash.pushUrl = url => t.equal(url, '/foo')
-  hash.update({ type: NAVIGATE, url: '/foo' })
+  hash.pushHref = href => t.equal(href, '/foo')
+  hash.update({ type: NAVIGATE, href: '/foo' })
 })
 
 test('on hashchange', t => {
@@ -42,8 +42,8 @@ test('on hashchange', t => {
   }
 
   const hash = new Hash(store)
-  hash.url = '/foo'
+  hash.href = '/foo'
 
-  hash.onPopUrl('/foo')
-  hash.onPopUrl('/foo/bar')
+  hash.onPopHref('/foo')
+  hash.onPopHref('/foo/bar')
 })

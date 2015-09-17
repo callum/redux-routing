@@ -15,27 +15,23 @@ export default function createMiddleware (History) {
         return next(action)
       }
 
-      let { location } = action
+      const parsed = url.parse(action.href)
 
-      if (typeof location === 'string') {
-        location = url.parse(action.location)
+      const location = {
+        hash: parsed.hash || undefined,
+        pathname: parsed.pathname,
+        search: parsed.search || undefined
       }
 
       let query
 
-      if (location.search) {
-        query = querystring.parse(location.search.slice(1))
-      }
-
-      location = {
-        hash: location.hash || undefined,
-        pathname: location.pathname,
-        search: location.search || undefined
+      if (parsed.query) {
+        query = querystring.parse(parsed.query)
       }
 
       const result = next({
         ...action,
-        url: url.format(location),
+        href: url.format(location),
         location,
         query
       })

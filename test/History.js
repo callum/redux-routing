@@ -20,12 +20,12 @@ test('push or replace on navigate', t => {
   t.plan(2)
 
   const history = new History()
-  history.getCurrentUrl = () => '/foo'
-  history.replaceUrl = url => t.equal(url, '/foo')
-  history.pushUrl = url => t.equal(url, '/foo/bar')
+  history.getCurrentHref = () => '/foo'
+  history.replaceHref = href => t.equal(href, '/foo')
+  history.pushHref = href => t.equal(href, '/foo/bar')
 
-  history.update({ type: NAVIGATE, url: '/foo' })
-  history.update({ type: NAVIGATE, url: '/foo/bar' })
+  history.update({ type: NAVIGATE, href: '/foo' })
+  history.update({ type: NAVIGATE, href: '/foo/bar' })
 })
 
 test('call pushState', t => {
@@ -33,17 +33,17 @@ test('call pushState', t => {
 
   const { pushState } = window.history
 
-  function stub (state, title, url) {
+  function stub (state, title, href) {
     window.history.pushState = pushState
+    t.equal(href, '/foo')
     t.equal(state, '/foo')
     t.equal(title, null)
-    t.equal(url, '/foo')
   }
 
   window.history.pushState = stub
 
   const history = new History()
-  history.pushUrl('/foo')
+  history.pushHref('/foo')
 })
 
 test('call replaceState', t => {
@@ -51,17 +51,17 @@ test('call replaceState', t => {
 
   const { replaceState } = window.history
 
-  function stub (state, title, url) {
+  function stub (state, title, href) {
     window.history.replaceState = replaceState
+    t.equal(href, '/foo')
     t.equal(state, '/foo')
     t.equal(title, null)
-    t.equal(url, '/foo')
   }
 
   window.history.replaceState = stub
 
   const history = new History()
-  history.replaceUrl('/foo')
+  history.replaceHref('/foo')
 })
 
 test('on popstate', t => {
@@ -74,5 +74,5 @@ test('on popstate', t => {
   }
 
   const history = new History(store)
-  history.onPopUrl('/foo')
+  history.onPopHref('/foo')
 })

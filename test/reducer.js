@@ -11,11 +11,11 @@ function action (type) {
   return {
     location: {
       hash: 'foo',
-      pathname: 'quux',
-      search: 'bar'
+      pathname: 'bar',
+      search: 'baz'
     },
-    query: 'foo',
-    url: 'baz',
+    href: 'baz',
+    query: 'bar',
     type
   }
 }
@@ -23,11 +23,11 @@ function action (type) {
 const expected = {
   location: {
     hash: 'foo',
-    pathname: 'quux',
-    search: 'bar'
+    pathname: 'bar',
+    search: 'baz'
   },
-  query: 'foo',
-  url: 'baz'
+  href: 'baz',
+  query: 'bar'
 }
 
 test('handle navigate', t => {

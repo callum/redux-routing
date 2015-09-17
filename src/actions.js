@@ -1,9 +1,9 @@
 import { NAVIGATE, REPLACE } from './constants'
 
-export function navigate (location) {
-  return { type: NAVIGATE, location }
+export function navigate (href) {
+  return { type: NAVIGATE, href }
 }
 
-export function replace (location) {
-  return { type: REPLACE, location }
+export function replace (href) {
+  return { type: REPLACE, href }
 }

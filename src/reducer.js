@@ -5,9 +5,9 @@ export default function reducer (route = {}, action) {
   case NAVIGATE:
   case REPLACE:
     return {
+      href: action.href,
       location: action.location,
-      query: action.query,
-      url: action.url
+      query: action.query
     }
 
   default:
