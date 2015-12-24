@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { match } from '../src'
+import { match } from 'redux-routing'
 
-@connect(route => ({ route }))
-export default class Root extends Component {
-  render () {
-    const matched = match(this.props.route.href, this.props.routes)
+const Root = props => {
+  const matched = match(props.route.href, props.routes)
 
-    if (matched) {
-      return <matched.handler {...this.props} />
-    } else {
-      return <div>404 not found</div>
-    }
+  if (matched) {
+    return <matched.handler {...props} />
+  } else {
+    return <div>404 not found</div>
   }
 }
+
+export default connect(route => ({ route }))(Root)

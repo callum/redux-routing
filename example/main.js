@@ -1,7 +1,8 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import { applyMiddleware, createStore } from 'redux'
 import { Provider } from 'react-redux'
-import { createMiddleware, History, navigate, reducer, route } from '../src'
+import { createMiddleware, History, navigate, reducer, route } from 'redux-routing'
 import Handler from './Handler'
 import Root from './Root'
 
@@ -17,6 +18,6 @@ const store = createStoreWithMiddleware(reducer)
 
 store.dispatch(navigate(window.location.href))
 
-React.render(<Provider store={store}>
-  {() => <Root routes={routes} />}
+ReactDOM.render(<Provider store={store}>
+  <Root routes={routes} />
 </Provider>, document.getElementById('root'))
