@@ -8,7 +8,11 @@ export default class History {
 
   listen () {
     window.addEventListener('popstate', event => {
-      this.onPopHref(event.state)
+      const { state } = event
+
+      if (typeof state === 'string') {
+        this.onPopHref(state)
+      }
     }, false)
   }
 
