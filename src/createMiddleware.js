@@ -29,12 +29,11 @@ export default function createMiddleware (History) {
         query = querystring.parse(parsed.query)
       }
 
-      const result = next({
-        ...action,
+      const result = next(Object.assign({}, action, {
         href: url.format(location),
         location,
         query
-      })
+      }))
 
       if (history) {
         history.update(result)

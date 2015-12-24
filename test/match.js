@@ -1,4 +1,3 @@
-import 'babelify/polyfill'
 import test from 'tape'
 import match from '../src/match'
 
