@@ -1,4 +1,5 @@
 import test from 'tape'
+import Path from 'path-parser'
 import match from '../src/match'
 
 test('no match', t => {
@@ -28,5 +29,30 @@ test('a match', t => {
     handler,
     params: {},
     path: '/foo'
+  })
+})
+
+test('a match with query string parameters', t => {
+  t.plan(1)
+
+  function handler () {
+  }
+
+  const path = '/foo?:bar'
+
+  const routes = [
+    {
+      handler,
+      path,
+      matcher: new Path(path)
+    }
+  ]
+
+  const matched = match('/foo?bar=baz', routes)
+
+  t.deepEqual(matched, {
+    handler,
+    params: { bar: 'baz' },
+    path: '/foo?:bar'
   })
 })
